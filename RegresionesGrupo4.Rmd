@@ -1,0 +1,72 @@
+---
+title: "RegresionesGrupo4"
+author: "Esdras Sosof"
+date: "2024-03-16"
+output: html_document
+---
+#Ejemplo análisis de datos. BDD Advertising
+#><
+```{r}
+base_de_datos<-read.csv("Advertising.csv", sep=",")
+base_de_datos
+```
+```{r}
+str(base_de_datos)
+summary(base_de_datos)
+```
+#llamar librerias
+```{r}
+library(dplyr)
+library(ggplot2)
+library(PerformanceAnalytics)
+```
+
+```{r}
+chart.Correlation(base_de_datos)
+```
+```{r}
+base_de_datos %>%
+  ggplot(aes(x=TV,y=Sales))+
+  geom_point(col='blue')+
+  geom_smooth(method="lm", se=FALSE)+
+  theme_minimal()
+```
+```{r}
+base_de_datos %>%
+  ggplot(aes(x=Newspaper,y=Sales))+
+  geom_point(col='blue')+
+  geom_smooth(method="lm", se=FALSE)+
+  theme_minimal()
+```
+```{r}
+base_de_datos %>%
+  ggplot(aes(x=Radio,y=Sales))+
+  geom_point(col='blue')+
+  geom_smooth(method="lm", se=FALSE)+
+  theme_minimal()
+```
+#Construcción de un modelo
+```{r}
+lm1<-base_de_datos %>%
+  lm(formula= Sales ~ TV)
+lm1
+```
+```{r}
+lm2<-base_de_datos %>%
+  lm(formula= Sales ~ Radio)
+lm2
+```
+```{r}
+lm3<-base_de_datos %>%
+  lm(formula= Sales ~ Newspaper)
+lm3
+```
+#Práctica de predicción
+```{r}
+predict(object = lm1, newdata = data.frame(TV=c(200)))
+```
+
+library(ggplot2)
+ggplot(dataset, aes(TV,Sales))+
+geom_point(col="steelbue")+
+geom_smooth(method="lm", se=False, col="red")
